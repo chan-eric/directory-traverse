@@ -28,17 +28,19 @@ def extract_table_names(directory):
         print(root)
         print("")
         for file in fnmatch.filter(files, "*.java"):
-            print("..." + root+file)
+            
             current_file_path = os.path.join(root, file)
+            print("..." + current_file_path)
             with open(current_file_path, 'r', encoding='utf8') as current:
                 content = current.read()
                 # matches = re.findall(table_name_pattern, content)
                 # for match in matches:
                 #     table_names.add("match: "+match)
                 #     print(match)
-                for table in table_names:
-                    if(content.find(table) != -1):
-                        print(table)
+                if (content.find('java.sql.PreparedStatement') != -1):
+                    for table in table_names:
+                        if(re.search(table, content, re.IGNORECASE)):
+                            print('appraisal.'+table)
             count = count + 1
         print()
         #with open(filename, "r"):
