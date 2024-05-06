@@ -39,7 +39,7 @@ def extract_table_names(directory):
                 #     print(match)
                 if (content.find('java.sql.PreparedStatement') != -1):
                     for table in table_names:
-                        if(re.search(table, content, re.IGNORECASE)):
+                        if(table.find('_')!= -1 and re.search(table, content, re.IGNORECASE)):
                             print('appraisal.'+table)
             count = count + 1
         print()
