@@ -4,14 +4,14 @@
 tables_found = 'c:/Users/EricChan/workspace/found.txt'
 
 
-#queried from database
+#load from database
 csv = 'c:/Users/EricChan/workspace/tables_202404291350.csv'
 
 def count_lines(filename):
     find_unique = set()
     with open(filename, 'r', encoding='UTF-8') as file:
         while line := file.readline():
-            if (line.startswith('appraisal.')):
+            if line.startswith('appraisal.'):
                 find_unique.add(line[10:-1])
         print('Number of tables found in NAS App:', len(find_unique))
     return find_unique
@@ -34,6 +34,7 @@ def convert_to_set(pair_values):
     for item in pair_values:
         if (item[1] == 'appraisal'):
             set_result.add(item[0].rstrip())
+    print('Number of tables found in NAS DB, appraisal schema:', len(set_result))
     return set_result
 
 def find_unused(set_one, set_two):
@@ -44,8 +45,11 @@ def find_unused(set_one, set_two):
     for unused in set_two:
         result_list.append(unused)
     result_list.sort()
-    print((result_list))
-    print(len(result_list))
+    # print((result_list))
+    # print all resuls
+    for item in result_list:
+        print(item)
+    print('Number of tables need further attentions: ', len(result_list))
 
 
 
